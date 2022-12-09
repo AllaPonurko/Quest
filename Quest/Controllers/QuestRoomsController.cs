@@ -57,7 +57,7 @@ namespace Quest.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,SubjectId,Time")] QuestRoom questRoom)
+        public async Task<IActionResult> Create([Bind("Id,Name,SubjectId,Time,LevelOfFear,DifficultyLevel,NumberOfPlayers")] QuestRoom questRoom)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace Quest.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,SubjectId,Time")] QuestRoom questRoom)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,SubjectId,Time,LevelOfFear,DifficultyLevel,NumberOfPlayers")] QuestRoom questRoom)
         {
             if (id != questRoom.Id)
             {

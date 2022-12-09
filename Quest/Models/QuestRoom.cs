@@ -16,5 +16,11 @@ namespace Quest.Models
         public int SubjectId { get; set; }
         [Required]
         public int Time { get; set; }
+        [Required]
+        public string LevelOfFear { get; set; }
+        [Required]
+        public string DifficultyLevel { get; set; }
+        [Required]
+        public int NumberOfPlayers { get; set; }
     }
 }

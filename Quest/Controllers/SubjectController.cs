@@ -10,11 +10,11 @@ using Quest.Models;
 
 namespace Quest.Controllers
 {
-    public class SubjectsController : Controller
+    public class SubjectController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public SubjectsController(ApplicationDbContext context)
+        public SubjectController(ApplicationDbContext context)
         {
             _context = context;
         }
