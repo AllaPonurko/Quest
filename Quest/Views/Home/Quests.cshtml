@@ -16,14 +16,18 @@
     }
 </style>
 <h3>Here you can choose a quest</h3>
+<nav id="subjectFilter">
+    <ul id="lstSubjects">
+        List of quests
+    </ul>
+</nav>
+
+<div id="questCintent">
+
+</div>
 
 
-<ul id="lstQuests">
-   List of quests
-</ul>
-
-
-<div>
+@*<div>
     <form id="frmCreate" >
         <label>Name<input type="text" name="Name" /></label><br />
         <label>Subject<input type="text" name="Subject" /></label><br />
@@ -33,45 +37,45 @@
         <label>Number of players<input type="number" name="NumberOfPlayers" /></label><br />
         <input type="button" value="Create" id="btnCreate" />
     </form>
-</div>
+</div>*@
 <script>
 
     let quests = []
-    let lstQuests = document.getElementById('lstQuests')
+    let lstSubjects = document.getElementById('lstSubjects')
 
-    const apiUrl = 'api/apiquestrooms'
+    const apiUrl = 'api/QuestRooms'
 
      /**
       * (C) Create Отправка quest на создание
       */
-    function questPost() {
+    //function questPost() {
 
-        let frmQuest = new FormData(document.getElementById('frmCreate'))
+    //    let frmQuest = new FormData(document.getElementById('frmCreate'))
 
-        const newQuest = {};
-        frmQuest.forEach((value, key) => (newQuest[key] = value));
-        console.log(newQuest)
+    //    const newQuest = {};
+    //    frmQuest.forEach((value, key) => (newQuest[key] = value));
+    //    console.log(newQuest)
 
-        fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newQuest)
-        })
-        .then(res => {
-            console.log(res.status)
-            console.log(res.statusText)
-            getQuests() //  Обновить данные с сервера (не лучший вариант - но пока доспустимо)
-        })
-        //.then(data => {
-        //    console.log(data)
-        //})
-        .catch (err => {
-            console.log(err)
-        })
+    //    fetch(apiUrl, {
+    //        method: 'POST',
+    //        headers: {
+    //            'Content-Type': 'application/json'
+    //        },
+    //        body: JSON.stringify(newQuest)
+    //    })
+    //    .then(res => {
+    //        console.log(res.status)
+    //        console.log(res.statusText)
+    //        getQuests() //  Обновить данные с сервера (не лучший вариант - но пока доспустимо)
+    //    })
+    //    //.then(data => {
+    //    //    console.log(data)
+    //    //})
+    //    .catch (err => {
+    //        console.log(err)
+    //    })
 
-    }
+    //}
 
 
     /**
