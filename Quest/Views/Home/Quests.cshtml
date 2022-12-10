@@ -18,12 +18,12 @@
 <h3>Here you can choose a quest</h3>
 <nav id="subjectFilter">
     <ul id="lstSubjects">
-        List of quests
+        List of subjects
     </ul>
 </nav>
 
-<div id="questCintent">
-
+<div id="questContent">
+    Ожидаю загрузку данных
 </div>
 
 
@@ -39,11 +39,16 @@
     </form>
 </div>*@
 <script>
-
-    let quests = []
+    /**
+     * Отображение ошибки для пользователя
+     */
+    function renderError(err) {
+        console.log(err)
+    }
+    
     let lstSubjects = document.getElementById('lstSubjects')
 
-    const apiUrl = 'api/QuestRooms'
+    const apiUrl = 'api/Subjects'
 
      /**
       * (C) Create Отправка quest на создание
@@ -79,14 +84,13 @@
 
 
     /**
-     * (R) Read Получение списка quests с сервера
+     * (R) Read Получение списка Subjects с сервера
      */
-    function getQuests() {
+    function getSubjects() {
         fetch(apiUrl)
         .then(res => res.json())
         .then(data=> {
-            quests = data
-            renderQuests()
+                renderSubjects(data)
         })
         .catch(err=> {
             console.log(err)
@@ -96,23 +100,79 @@
 
 
     /**
-     * Построение списка quests
+     * Построение списка subjects
      */
-    function renderQuests() {
-        console.log(quests)
-        lstQuests.innerHTML = "" // Очистить список
-        quests.map(quest => {
+    function renderSubjects() {
+        console.log(subjects)
+        lstSubjects.innerHTML = "" // Очистить список
+        subjects.map(subject => {
             let li = document.createElement('li')
-            let span = document.createElement('span')
-            span.dataset.id = quest.id
-            span.innerText = quest.name
-            li.appendChild(span)
+          
+            li.dataset.subject_id = subject.id
+            li.innerText = subject.name
+            li.onclick=getSearchQuest()
 
-            lstQuests.appendChild(li)
+            lstSubjects.appendChild(li)
         })
     }
-
+    let filter = document.getElementById('subjectFilter')
+    let content = document.getElementById('questContent')
+    let quests = []
+    /**
+     * Получение данных о quests без фильтра
+     */
     //*-----
+    function getQuests() {
+        fetch('api/QuestRooms').then(res => { return res.json })
+            .then(data => { renderQuests(data) })
+        .catch(err => {
+            renderError(err)
+        })
+    }
+    /**
+    * Процесс построения данных о quests
+    */
+    function renderQuests() {
+        content.innerHTML = ""
+        if (quests.length === 0) {
+            let msg = '<div class="alert alert-secondary" role = "alert" > По вашему запросу Quests не найдено </div>'
+            content.innerHTML = msg
+            return
+        }
+        let ul = document.createElement('ul')
+        quests.map(quest => {
+            let li = document.createElement('li')
+            li.dataset.quest_id = quest.id
+
+            let h3 = document.createElement('h3')
+            h3.innerText = quest.name
+
+            
+            li.appendChild(h3)
+            ul.appendChild(li)
+        })
+
+        content.appendChild(ul)
+    }
+    /**
+     * Получение данных о quests, в соответствии с фильтром
+     */
+    function getSearchQuest() {
+        console.log(event.target)
+        console.log(event.target.dataset.subject_id)
+
+        fetch('/api/Search/?SubjectId=' + event.target.dataset.subject_id)
+            .then(res => res.json())
+            .then(data => {
+                
+                quests = data
+                renderQuests()
+            })
+            .catch(err => {
+                renderError(err)
+            })
+
+    }
+    getSubjects()
     getQuests()
-    document.getElementById('btnCreate').onclick = (event) => { event.preventDefault(); questPost(); }
 </script>

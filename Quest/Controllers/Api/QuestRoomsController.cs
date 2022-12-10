@@ -48,17 +48,9 @@ namespace Quest.Controllers.Api
             return questRoom;
         }
 
-        
-
-            
-        
-
-       
-        
-
-        private bool QuestRoomExists(int id)
-        {
-            return _context.Quests.Any(e => e.Id == id);
-        }
+        //private bool QuestRoomExists(int id)
+        //{
+        //    return _context.Quests.Any(e => e.Id == id);
+        //}
     }
 }
