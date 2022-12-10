@@ -3,18 +3,112 @@
 }
 <h1>@ViewData["Title"]</h1>
 <style>
-h3{text-align:center;background-color:azure
+    h3 {
+        text-align: center;
+        background-color: azure
+    }
+    label {
+        text-align: left
+    }
+    input {
+        margin-left:200px;
+        background-color: azure
     }
 </style>
 <h3>Here you can choose a quest</h3>
 
+
+<ul id="lstQuests">
+   List of quests
+</ul>
+
+
 <div>
-    
-    <label>QuestRooms</label><br />
-    <input name="questroom.name" /><br />
-    <label>Subject</label><br />
-    <input subject="subject.name" /><br />
-    <label>Time</label><br />
-    <input time="questroom.time" type="number" /><br />
-    <input type='submit' value='Confirm' />
+    <form id="frmCreate" >
+        <label>Name<input type="text" name="Name" /></label><br />
+        <label>Subject<input type="text" name="Subject" /></label><br />
+        <label>Time<input type="number" name="Time" /></label><br />
+        <label>Level of fear<input type="text" name="LevelOfFear" /></label><br />
+        <label>Difficult Level<input type="text" name="DifficultyLevel" /></label><br />
+        <label>Number of players<input type="number" name="NumberOfPlayers" /></label><br />
+        <input type="button" value="Create" id="btnCreate" />
+    </form>
 </div>
+<script>
+
+    let quests = []
+    let lstQuests = document.getElementById('lstQuests')
+
+    const apiUrl = 'api/apiquestrooms'
+
+     /**
+      * (C) Create Отправка quest на создание
+      */
+    function questPost() {
+
+        let frmQuest = new FormData(document.getElementById('frmCreate'))
+
+        const newQuest = {};
+        frmQuest.forEach((value, key) => (newQuest[key] = value));
+        console.log(newQuest)
+
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newQuest)
+        })
+        .then(res => {
+            console.log(res.status)
+            console.log(res.statusText)
+            getQuests() //  Обновить данные с сервера (не лучший вариант - но пока доспустимо)
+        })
+        //.then(data => {
+        //    console.log(data)
+        //})
+        .catch (err => {
+            console.log(err)
+        })
+
+    }
+
+
+    /**
+     * (R) Read Получение списка quests с сервера
+     */
+    function getQuests() {
+        fetch(apiUrl)
+        .then(res => res.json())
+        .then(data=> {
+            quests = data
+            renderQuests()
+        })
+        .catch(err=> {
+            console.log(err)
+        })
+    }
+
+
+
+    /**
+     * Построение списка quests
+     */
+    function renderQuests() {
+        console.log(quests)
+        lstQuests.innerHTML = "" // Очистить список
+        quests.map(quest => {
+            let li = document.createElement('li')
+            let span = document.createElement('span')
+            span.dataset.id = quest.id
+            span.innerText = quest.name
+            li.appendChild(span)
+
+            lstQuests.appendChild(li)
+        })
+    }
+
+    //*-----
+    getQuests()
+    document.getElementById('btnCreate').onclick = (event) => { event.preventDefault(); questPost(); }
+</script>
