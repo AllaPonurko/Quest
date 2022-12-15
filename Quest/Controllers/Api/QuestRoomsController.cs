@@ -28,7 +28,7 @@ namespace Quest.Controllers.Api
             var query = _context.Quests.AsQueryable();
             if (SubjectId != null)
             {
-                query = query.Where(p => p.Subject.Id == SubjectId);
+                query = query.Where(q => q.Subject.Id == SubjectId);
             }
             return await query.ToListAsync();
             //return await _context.Quests.ToListAsync();

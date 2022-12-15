@@ -46,9 +46,9 @@
         console.log(err)
     }
     
-    let lstSubjects = document.getElementById('lstSubjects')
+    let lstSubjects = document.getElementById("lstSubjects")
 
-    const apiUrl = 'api/Subjects'
+    const apiUrl = "api/Subjects"
 
      /**
       * (C) Create Отправка quest на создание
@@ -87,8 +87,8 @@
      * (R) Read Получение списка Subjects с сервера
      */
     function getSubjects() {
-        fetch(apiUrl)
-        .then(res => res.json())
+        fetch("api/Subjects")
+            .then(res => { return res.json() })
         .then(data=> {
                 renderSubjects(data)
         })
@@ -102,8 +102,8 @@
     /**
      * Построение списка subjects
      */
-    function renderSubjects() {
-        console.log(subjects)
+    function renderSubjects(subjects) {
+        /*console.log(subjects)*/
         lstSubjects.innerHTML = "" // Очистить список
         subjects.map(subject => {
             let li = document.createElement('li')
@@ -115,15 +115,15 @@
             lstSubjects.appendChild(li)
         })
     }
-    let filter = document.getElementById('subjectFilter')
-    let content = document.getElementById('questContent')
+    let filter = document.getElementById("subjectFilter")
+    let content = document.getElementById("questContent")
     let quests = []
     /**
      * Получение данных о quests без фильтра
      */
     //*-----
     function getQuests() {
-        fetch('api/QuestRooms').then(res => { return res.json })
+        fetch('api/ApiQuestRooms').then(res => { return res.json })
             .then(data => { renderQuests(data) })
         .catch(err => {
             renderError(err)
@@ -132,7 +132,7 @@
     /**
     * Процесс построения данных о quests
     */
-    function renderQuests() {
+    function renderQuests(quests) {
         content.innerHTML = ""
         if (quests.length === 0) {
             let msg = '<div class="alert alert-secondary" role = "alert" > По вашему запросу Quests не найдено </div>'
@@ -166,7 +166,7 @@
             .then(data => {
                 
                 quests = data
-                renderQuests()
+                renderQuests(quests)
             })
             .catch(err => {
                 renderError(err)
