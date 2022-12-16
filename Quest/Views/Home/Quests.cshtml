@@ -46,48 +46,13 @@
         console.log(err)
     }
     
-    let lstSubjects = document.getElementById("lstSubjects")
-
-    const apiUrl = "api/Subjects"
-
-     /**
-      * (C) Create Отправка quest на создание
-      */
-    //function questPost() {
-
-    //    let frmQuest = new FormData(document.getElementById('frmCreate'))
-
-    //    const newQuest = {};
-    //    frmQuest.forEach((value, key) => (newQuest[key] = value));
-    //    console.log(newQuest)
-
-    //    fetch(apiUrl, {
-    //        method: 'POST',
-    //        headers: {
-    //            'Content-Type': 'application/json'
-    //        },
-    //        body: JSON.stringify(newQuest)
-    //    })
-    //    .then(res => {
-    //        console.log(res.status)
-    //        console.log(res.statusText)
-    //        getQuests() //  Обновить данные с сервера (не лучший вариант - но пока доспустимо)
-    //    })
-    //    //.then(data => {
-    //    //    console.log(data)
-    //    //})
-    //    .catch (err => {
-    //        console.log(err)
-    //    })
-
-    //}
-
+    let lstSubjects = document.getElementById('lstSubjects')
 
     /**
      * (R) Read Получение списка Subjects с сервера
      */
     function getSubjects() {
-        fetch("api/Subjects")
+        fetch('/api/Subjects')
             .then(res => { return res.json() })
         .then(data=> {
                 renderSubjects(data)
@@ -103,7 +68,7 @@
      * Построение списка subjects
      */
     function renderSubjects(subjects) {
-        /*console.log(subjects)*/
+        console.log(subjects)
         lstSubjects.innerHTML = "" // Очистить список
         subjects.map(subject => {
             let li = document.createElement('li')
@@ -123,7 +88,7 @@
      */
     //*-----
     function getQuests() {
-        fetch('api/ApiQuestRooms').then(res => { return res.json })
+        fetch('/api/ApiQuestRooms').then(res => { return res.json })
             .then(data => { renderQuests(data) })
         .catch(err => {
             renderError(err)
