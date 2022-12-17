@@ -52,10 +52,9 @@
      * (R) Read Получение списка Subjects с сервера
      */
     function getSubjects() {
-        fetch('/api/Subjects', {method:'GET',})
-            .then(res => { return res.json() })
-        .then(data=> {
-                renderSubjects(data)
+        fetch('/api/Subjects', { method: 'GET', }).then(res => {return res.json })
+            .then(subjects=> {
+                renderSubjects(subjects)
         })
         .catch(err=> {
             console.log(err)
