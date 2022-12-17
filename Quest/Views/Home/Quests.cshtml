@@ -52,7 +52,7 @@
      * (R) Read Получение списка Subjects с сервера
      */
     function getSubjects() {
-        fetch('/api/Subjects')
+        fetch('/api/Subjects', {method:'GET',})
             .then(res => { return res.json() })
         .then(data=> {
                 renderSubjects(data)
@@ -88,7 +88,9 @@
      */
     //*-----
     function getQuests() {
-        fetch('/api/ApiQuestRooms').then(res => { return res.json })
+        fetch('/api/QuestRooms', {
+            method: 'GET',
+            /*body: new FormData(),*/ }).then(res => { return res.json })
             .then(data => { renderQuests(data) })
         .catch(err => {
             renderError(err)

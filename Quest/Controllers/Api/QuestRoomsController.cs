@@ -21,7 +21,7 @@ namespace Quest.Controllers.Api
             _context = context;
         }
 
-        // GET: api/ApiQuestRooms
+        // GET: api/QuestRooms
         [HttpGet]
         public async Task<ActionResult<IEnumerable<QuestRoom>>> GetQuests(int? SubjectId)
         {
@@ -34,7 +34,7 @@ namespace Quest.Controllers.Api
             //return await _context.Quests.ToListAsync();
         }
 
-        // GET: api/ApiQuestRooms/5
+        // GET: api/QuestRooms/5
         [HttpGet("{id}")]
         public async Task<ActionResult<QuestRoom>> GetQuestRoom(int id)
         {
